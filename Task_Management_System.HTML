@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Task Management System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ece9f6, #ffffff);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 40px 20px;
+      color: #4b4b7f;
+      gap: 40px;
+    }
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .left-panel {
+      flex: 1 1 320px;
+      background: #6c5ce7;
+      color: #fff;
+      border-radius: 30px;
+      padding: 50px 35px;
+      box-shadow: 0 20px 50px rgb(108 92 231 / 0.25);
+      user-select: none;
+    }
+    .left-panel h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      line-height: 1.1;
+    }
+    .left-panel p {
+      font-weight: 500;
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-top: 8px;
+    }
+    .middle-panel {
+      flex: 1.6 1 480px;
+      background: #f3eaff;
+      border-radius: 30px;
+      padding: 40px;
+      box-shadow: 0 12px 40px rgba(108, 92, 231, 0.1);
+      font-size: 1.15rem;
+    }
+    .middle-panel h3 {
+      font-weight: 700;
+      font-size: 1.7rem;
+      margin-bottom: 20px;
+      color: #4b39e3;
+    }
+    .right-panel {
+      flex: 1 1 350px;
+      background: #fff;
+      border-radius: 30px;
+      padding: 40px 30px;
+      box-shadow: 0 20px 50px rgb(108 92 231 / 0.15);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .right-panel h2 {
+      font-weight: 700;
+      font-size: 1.9rem;
+      color: #6c5ce7;
+    }
+    .right-panel input,
+    .right-panel select {
+      padding: 14px 18px;
+      font-size: 1rem;
+      border-radius: 14px;
+      border: 2px solid #d1c4f7;
+      outline: none;
+      font-weight: 500;
+      color: #5b4dc9;
+    }
+    .add-btn {
+      background: linear-gradient(135deg, #6c5ce7, #4b39e3);
+      color: white;
+      font-weight: 700;
+      border: none;
+      border-radius: 18px;
+      cursor: pointer;
+      padding: 14px 0;
+      font-size: 1.3rem;
+      box-shadow: 0 6px 15px rgba(108, 92, 231, 0.3);
+    }
+    .add-btn:hover {
+      background: linear-gradient(135deg, #4b39e3, #3a2cc1);
+    }
+    .sort-section {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #7a63c9;
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+    .sort-section select {
+      padding: 10px 16px;
+      border-radius: 12px;
+      border: 2px solid #d1c4f7;
+      font-weight: 500;
+      font-size: 1rem;
+      color: #5b4dc9;
+    }
+    ul#task-list {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 20px;
+    }
+    ul#task-list li {
+      background: #f3f1ff;
+      padding: 15px 20px;
+      margin-bottom: 12px;
+      border-radius: 12px;
+      box-shadow: 0 3px 8px rgba(108, 92, 231, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    ul#task-list li.completed strong {
+      text-decoration: line-through;
+      opacity: 0.6;
+    }
+    .delete-btn {
+      background: transparent;
+      border: none;
+      color: #e74c3c;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    @media (max-width: 900px) {
+      body { padding: 30px 10px; flex-direction: column; align-items: center; }
+      .left-panel, .middle-panel, .right-panel {
+        width: 100%; max-width: 480px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="left-panel">
+      <h1>Task Management System</h1>
+      <p>By Virendra Maurya | MCA III | SECTION F</p>
+    </section>
+
+    <section class="middle-panel">
+      <h3>Why I Made This Project</h3>
+      <p>
+        I created this Task Management System to build an efficient, user-friendly web
+        application using HTML, CSS, and JavaScript. This project allows users to organize
+        their daily tasks by adding, categorizing, and sorting tasks along with due dates,
+        improving productivity and time management.
+      </p>
+    </section>
+
+    <section class="right-panel">
+      <h2>📝 Smart To-Do List</h2>
+      <input type="text" id="task-input" placeholder="Enter a new task" />
+      <input type="date" id="due-date" />
+      <select id="category">
+        <option value="Personal">Personal</option>
+        <option value="Work">Work</option>
+        <option value="Study">Study</option>
+        <option value="Other">Other</option>
+      </select>
+      <button class="add-btn" onclick="addTask()">Add Task</button>
+
+      <div class="sort-section">
+        <label for="sort-select">Sort by:</label>
+        <select id="sort-select" onchange="renderTasks()">
+          <option value="date">Due Date</option>
+          <option value="category">Category</option>
+          <option value="name">Task Name</option>
+        </select>
+      </div>
+
+      <ul id="task-list"></ul>
+    </section>
+  </div>
+
+  <script>
+    let taskList = [];
+
+    window.onload = () => {
+      const saved = localStorage.getItem("tasks");
+      if (saved) {
+        taskList = JSON.parse(saved);
+        renderTasks();
+      }
+    };
+
+    function addTask() {
+      const taskInput = document.getElementById("task-input");
+      const dateInput = document.getElementById("due-date");
+      const categorySelect = document.getElementById("category");
+
+      const taskText = taskInput.value.trim();
+      const dueDate = dateInput.value;
+      const category = categorySelect.value;
+
+      if (taskText === "") return;
+
+      taskList.push({
+        text: taskText,
+        dueDate: dueDate,
+        category: category,
+        completed: false
+      });
+
+      taskInput.value = "";
+      dateInput.value = "";
+      categorySelect.value = "Personal";
+
+      saveTasks();
+      renderTasks();
+    }
+
+    function toggleTask(index) {
+      taskList[index].completed = !taskList[index].completed;
+      saveTasks();
+      renderTasks();
+    }
+
+    function deleteTask(index) {
+      taskList.splice(index, 1);
+      saveTasks();
+      renderTasks();
+    }
+
+    function renderTasks() {
+      const list = document.getElementById("task-list");
+      list.innerHTML = "";
+
+      const sortBy = document.getElementById("sort-select").value;
+      const sortedTasks = [...taskList];
+
+      sortedTasks.sort((a, b) => {
+        if (sortBy === "date") {
+          return new Date(a.dueDate || "2100-01-01") - new Date(b.dueDate || "2100-01-01");
+        } else if (sortBy === "name") {
+          return a.text.localeCompare(b.text);
+        } else if (sortBy === "category") {
+          return a.category.localeCompare(b.category);
+        }
+        return 0;
+      });
+
+      sortedTasks.forEach((task, index) => {
+        const li = document.createElement("li");
+        li.className = task.completed ? "completed" : "";
+
+        li.innerHTML = `
+          <div onclick="toggleTask(${taskList.indexOf(task)})">
+            <strong>${task.text}</strong>
+            <div class="task-meta">📅 ${task.dueDate || "No date"} | 📂 ${task.category}</div>
+          </div>
+          <button class="delete-btn" onclick="deleteTask(${taskList.indexOf(task)})">Delete</button>
+        `;
+        list.appendChild(li);
+      });
+    }
+
+    function saveTasks() {
+      localStorage.setItem("tasks", JSON.stringify(taskList));
+    }
+  </script>
+</body>
+</html>
