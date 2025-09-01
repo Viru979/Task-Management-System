@@ -2,13 +2,13 @@ const express = require('express');
 const router = express.Router();
 const Task = require('../models/taskModel');
 
-// GET all tasks
+
 router.get('/', async (req, res) => {
   const tasks = await Task.find();
   res.json(tasks);
 });
 
-// POST create new task
+
 router.post('/', async (req, res) => {
   try {
     const newTask = new Task(req.body);
@@ -19,7 +19,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-// DELETE a task
+
 router.delete('/:id', async (req, res) => {
   try {
     await Task.findByIdAndDelete(req.params.id);
@@ -29,7 +29,7 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-// PATCH toggle completed
+
 router.patch('/:id/toggle', async (req, res) => {
   try {
     const task = await Task.findById(req.params.id);
